@@ -1,0 +1,71 @@
+import Global from "../Global";
+import axios from "axios";
+import { Promise } from "core-js";
+
+
+export default class SerciceDepartamentos{
+    getDepartamentos(){
+        return new Promise (function(resolve){
+            var request ="api/departamentos";
+            var url = Global.urldepartamentos + request;
+            var departamentos= [];
+            axios.get(url).then(response=>{
+                departamentos= response.data;
+                resolve(departamentos);
+            });
+        });
+    }
+
+    
+    insertarDepartamento(departamento){
+        return new Promise(function(resolve){
+            var request= "/api/departamentos";
+            var url= Global.urldepartamentos + request;
+            axios.post(url,departamento).then(response=>{
+                resolve(response);
+            });
+        });
+    }
+
+    //METODO PARA BUSCAR UN DEPARTAMENTO EN EL API
+    //RECIBIMOS EL ID DEL DEPARTAMENTO
+
+    findDepartamentos(id){
+        return new Promise(function (resolve) {
+            var request = "api/departamentos/"+ id;
+            var url=Global.urldepartamentos + request;
+            var departamento ={};
+            axios.get(url).then(response=>{
+                departamento= response.data;
+                resolve(departamento);
+            });
+        });
+
+
+    }
+
+    //METODO PARA MODIFICAR UN DEPARTAMENTO
+    //RECIBIMOS EL OBJETO DEPARTAMENTO
+    updateDepartamento(departamento){
+        return new Promise(function(resolve){
+            var request ="api/departamentos";
+            var url = Global.urldepartamentos+ request;
+            axios.put(url,departamento).then(response=>{
+                resolve(response);
+            });
+        });
+    }
+
+    //METODO PARA ELIMINAR RECIBIENDO UN ID
+    //METODO PARA ELIMINAR RECIBIENDO UN ID
+    deleteDepartamento(id){
+        return new Promise(function(resolve) {
+            var request = "/api/departamentos/" + id;
+            var url = Global.urldepartamentos + request;
+            axios.delete(url).then(response => {
+                resolve(response);
+            });
+        });
+    }
+
+}
